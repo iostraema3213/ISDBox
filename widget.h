@@ -8,6 +8,8 @@
 #include <QDateTime>
 #include <QMap>
 #include <qDebug>
+#include <QCloseEvent>
+#include <QSettings>
 
 namespace Ui
 {
@@ -46,6 +48,12 @@ private slots:
     void on_pushButton_2_clicked();
 
     void on_pushButton_3_clicked();
+    void updateDutyTime();
+
+    void on_pushButton_4_clicked();
+
+    void setSetting(QString key, QString value);
+    QString getSetting(QString key);
 
 private:
     Ui::Widget *ui;
@@ -54,6 +62,11 @@ private:
     QTimer *timer;
     QMap<QString, adInfo> company_adinfo;
     QMap<QString, adInfo> username_adinfo;
+    QDateTime listenTime;
+    QSettings *setting;
+    bool isFirstMessage;
+protected :
+    void closeEvent(QCloseEvent *event);
 };
 
 #endif // WIDGET_H
