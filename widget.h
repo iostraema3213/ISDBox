@@ -62,7 +62,7 @@ private:
     QTimer *timer;
     QMap<QString, adInfo> company_adinfo;
     QMap<QString, adInfo> username_adinfo;
-    QDateTime listenTime;
+    QDateTime *listenTime;
     QSettings *setting;
     bool isFirstMessage;
 protected :

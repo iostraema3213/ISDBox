@@ -30,15 +30,17 @@ Widget::Widget(QWidget *parent) :
     m_pSystemWatcher = new QFileSystemWatcher();
     connect(m_pSystemWatcher, &QFileSystemWatcher::fileChanged, this, &Widget::onFileChanged);
     timer = new QTimer(this);
-    timer->setInterval(1000);
+    timer->setInterval(300);
     timer->setSingleShot(false);
-    connect(timer, &QTimer::timeout, this, [ = ] {
+    connect(timer, &QTimer::timeout, this, [ & ] {
         QTextStream stream(file);
         QString str = stream.readLine();
         if (isFirstMessage == false && !str.isEmpty())
         {
-            listenTime = QDateTime::currentDateTime();
-            qDebug() << listenTime;
+            listenTime = new QDateTime();
+            *listenTime = QDateTime::currentDateTime();
+            qDebug() << "+++++++++++++++++++++++";
+            qDebug() << *listenTime;
             isFirstMessage = true;
         }
         if (!str.isEmpty())
@@ -92,7 +94,7 @@ Widget::Widget(QWidget *parent) :
                     ui->textBrowser->append(toColorString(str, "#0000FF"));
                     return;
                 } else {
-                    ui->textBrowser->append(str);
+                    ui->textBrowser->append(toColorString(str, "#000000"));
                 }
             } else if (str.contains("qq") || str.contains("QQ") || str.contains("yy") || str.contains("YY")) {
                 ui->textBrowser->append(toColorString(str, "#8B4513"));
@@ -150,24 +152,28 @@ void Widget::on_pushButton_2_clicked()
     ui->pushButton->setEnabled(true);
     ui->pushButton_2->setEnabled(false);
     timer->stop();
+    isFirstMessage = false;
 
-    if (listenTime.isNull()) {
+    qDebug() << listenTime;
+    if (listenTime == NULL || listenTime->isNull()) {
         return;
     }
     qDebug() << QDateTime::currentDateTime();
-    int second = qAbs(QDateTime::currentDateTime().toSecsSinceEpoch() - listenTime.toSecsSinceEpoch());
+    int second = qAbs(QDateTime::currentDateTime().toSecsSinceEpoch() - listenTime->toSecsSinceEpoch());
+    listenTime = NULL;
 
+    int s = 0;
     int hour = 0;
     int minute = 0;
     if (second > 60) {
         minute = second / 60;
-        second = second % 60;
+        s = second % 60;
     }
     if (minute > 60) {
         hour = minute / 60;
         minute = minute % 60;
     }
-    QTime time(hour, minute, second);
+    QTime time(hour, minute, s);
     int r = QMessageBox::question(this, "", QString("是否保存本次值班时间%1").arg(time.toString("hh:mm:ss")),
                                   QMessageBox::Yes, QMessageBox::No);
     if (QMessageBox::Yes == r) {
