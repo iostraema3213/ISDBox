@@ -207,6 +207,7 @@ void Widget::updateDutyTime()
 {
     QString recordTimeString = setting->value("recordTime").toString();
     qDebug() << QTime::fromString(recordTimeString, "hh:mm:ss");
+    ui->label_6->setText(recordTimeString);
     ui->timeEdit->setTime(QTime::fromString(recordTimeString, "hh:mm:ss"));
     //    ui->label_5->setText("本月执勤时间：" + recordTimeString);
 }
@@ -214,6 +215,7 @@ void Widget::updateDutyTime()
 void Widget::on_pushButton_4_clicked()
 {
     QTime time(0, 0, 0);
+    ui->label_6->setText(time.toString("hh:mm:ss"));
     ui->timeEdit->setTime(time);
     setSetting("recordTime", "");
 }

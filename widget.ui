@@ -136,6 +136,13 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="maximumTime">
+    <time>
+     <hour>23</hour>
+     <minute>59</minute>
+     <second>59</second>
+    </time>
+   </property>
    <property name="displayFormat">
     <string>hh:mm:ss</string>
    </property>
@@ -151,6 +158,19 @@
    </property>
    <property name="text">
     <string>执勤时间清零</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>1050</x>
+     <y>110</y>
+     <width>101</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
    </property>
   </widget>
  </widget>
