@@ -15,6 +15,8 @@ Widget::Widget(QWidget *parent) :
     isFirstMessage = false;
     file = nullptr;
     setting = new QSettings("./Setting.ini", QSettings::IniFormat);
+    shortcut = new MyGlobalShortCut("Ctrl+F9", this);
+    connect(shortcut, SIGNAL(activated()), this, SLOT(activated()));
     updateDutyTime();
 
     adInfo ad;
@@ -26,7 +28,6 @@ Widget::Widget(QWidget *parent) :
     ui->label->setStyleSheet("color:#DC143C");
     ui->label_2->setStyleSheet("color:#0000FF");
     ui->label_3->setStyleSheet("color:#8B4513");
-    ui->label_6->setStyleSheet("color:#DC143C");
     ui->pushButton_2->setEnabled(false);
     m_pSystemWatcher = new QFileSystemWatcher();
     connect(m_pSystemWatcher, &QFileSystemWatcher::fileChanged, this, &Widget::onFileChanged);
@@ -208,7 +209,7 @@ void Widget::updateDutyTime()
 {
     QString recordTimeString = setting->value("recordTime").toString();
     qDebug() << QTime::fromString(recordTimeString, "hh:mm:ss");
-    ui->label_6->setText(recordTimeString);
+    ui->label_10->setText(recordTimeString);
     ui->timeEdit->setTime(QTime::fromString(recordTimeString, "hh:mm:ss"));
     //    ui->label_5->setText("本月执勤时间：" + recordTimeString);
 }
@@ -216,7 +217,7 @@ void Widget::updateDutyTime()
 void Widget::on_pushButton_4_clicked()
 {
     QTime time(0, 0, 0);
-    ui->label_6->setText(time.toString("hh:mm:ss"));
+    ui->label_10->setText(time.toString("hh:mm:ss"));
     ui->timeEdit->setTime(time);
     setSetting("recordTime", "");
 }
@@ -230,6 +231,11 @@ void Widget::setSetting(QString key, QString value)
 QString Widget::getSetting(QString key)
 {
     return setting->value(key).toString();
+}
+
+void Widget::activated()
+{
+    qDebug() << "快捷键";
 }
 
 void Widget::closeEvent(QCloseEvent *event)

@@ -10,6 +10,7 @@
 #include <qDebug>
 #include <QCloseEvent>
 #include <QSettings>
+#include <MyGlobalShortCut/MyGlobalShortCut.h>
 
 namespace Ui
 {
@@ -54,6 +55,7 @@ private slots:
 
     void setSetting(QString key, QString value);
     QString getSetting(QString key);
+    void activated();
 
 private:
     Ui::Widget *ui;
@@ -65,6 +67,7 @@ private:
     QDateTime *listenTime;
     QSettings *setting;
     bool isFirstMessage;
+    MyGlobalShortCut *shortcut;
 protected :
     void closeEvent(QCloseEvent *event);
 };

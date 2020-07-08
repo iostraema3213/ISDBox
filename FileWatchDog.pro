@@ -25,10 +25,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        widget.cpp
+        widget.cpp \
+    MyGlobalShortCut/MyGlobalShortCut.cpp \
+    MyGlobalShortCut/MyWinEventFilter.cpp
 
 HEADERS += \
-        widget.h
+        widget.h \
+    MyGlobalShortCut/MyGlobalShortCut.h \
+    MyGlobalShortCut/MyWinEventFilter.h
 
 FORMS += \
         widget.ui
