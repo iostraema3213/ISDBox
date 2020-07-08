@@ -26,6 +26,7 @@ Widget::Widget(QWidget *parent) :
     ui->label->setStyleSheet("color:#DC143C");
     ui->label_2->setStyleSheet("color:#0000FF");
     ui->label_3->setStyleSheet("color:#8B4513");
+    ui->label_6->setStyleSheet("color:#DC143C");
     ui->pushButton_2->setEnabled(false);
     m_pSystemWatcher = new QFileSystemWatcher();
     connect(m_pSystemWatcher, &QFileSystemWatcher::fileChanged, this, &Widget::onFileChanged);
